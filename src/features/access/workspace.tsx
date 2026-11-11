@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from './client'
 import { SignIn } from './sign-in'
 import { Register } from '../sales/register'
+import { AdminConsole } from '../admin/console'
+import { roles as roleLabels } from '../admin/roles'
 
 interface Access {
   user: string
@@ -11,7 +13,7 @@ interface Access {
   admin: boolean
 }
 
-export function Workspace() {
+export function Workspace({ administration = false }: { administration?: boolean }) {
   const [access, setAccess] = useState<Access | null>(null)
   const [ready, setReady] = useState(false)
   const [organization, setOrganization] = useState('')
@@ -67,16 +69,23 @@ export function Workspace() {
 
   const roles = access.memberships.filter(row => row.organization_id === organization).map(row => row.role)
   const organizations = [...new Set(access.memberships.map(row => row.organization_id))]
+  const canManage = access.admin || access.memberships.some(row => row.role === 'owner')
+
+  if (administration) return canManage
+    ? <AdminConsole platform={access.admin} />
+    : <p>Distributor owner or platform superadmin access is required.</p>
+
   const canSell = roles.some(role => ['owner', 'operations_manager', 'sales', 'cashier', 'driver'].includes(role))
 
   return (
     <div className="operation">
       {access.admin && <p>Platform superadmin</p>}
+      {canManage && <a className="primary-link" href="/admin">Open administration</a>}
       {organizations.length > 0 && <label>Organization<select value={organization}
         onChange={event => setOrganization(event.target.value)}>
         {organizations.map(id => <option key={id}>{id}</option>)}
       </select></label>}
-      <p>{roles.length ? roles.map(role => role.replaceAll('_', ' ')).join(', ') : 'No distributor role assigned.'}</p>
+      <p>{roles.length ? roles.map(role => roleLabels[role as keyof typeof roleLabels] ?? role).join(', ') : 'No distributor role assigned.'}</p>
       <button onClick={() => void supabase?.auth.signOut({ scope: 'local' })}>Sign out</button>
       {canSell && <Register key={`${access.user}-${organization}`} org={organization} user={access.user} />}
     </div>
