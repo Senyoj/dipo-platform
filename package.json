@@ -1,0 +1,1 @@
+{"name":"dipo","private":true,"scripts":{"dev":"next dev","build":"next build","start":"next start","check":"tsc --noEmit"},"dependencies":{"next":"16.4.6","react":"latest","react-dom":"latest","@supabase/supabase-js":"latest","idb":"latest"},"devDependencies":{"typescript":"latest","@types/node":"latest","@types/react":"latest","@types/react-dom":"latest"}}
