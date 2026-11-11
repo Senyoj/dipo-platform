@@ -23,3 +23,17 @@ p { margin-block: .6rem 0; font-size: 1.125rem; line-height: 1.5; }
 .areas li { padding: 1.5rem; background: white; border-radius: 1rem; }
 @media (min-width: 42rem) { .areas { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 66rem) { .areas { grid-template-columns: repeat(3, 1fr); } }
+
+.operation { display: grid; gap: 1rem; max-width: 34rem; margin-top: 1rem; }
+.operation label { display: grid; gap: .35rem; font-weight: 700; }
+.operation :is(input, select, button) {
+  min-height: 3rem;
+  min-width: 0;
+  width: 100%;
+  padding: .65rem .85rem;
+  border: 1px solid #617a6d;
+  border-radius: .6rem;
+  font: inherit;
+}
+.operation button { color: white; background: #194d38; font-weight: 700; }
+.operation button:disabled { opacity: .55; }
