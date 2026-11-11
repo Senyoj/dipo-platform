@@ -5,6 +5,7 @@ import { supabase } from './client'
 import { SignIn } from './sign-in'
 import { Register } from '../sales/register'
 import { AdminConsole } from '../admin/console'
+import { PlatformDashboard } from '../admin/platform'
 import { roles as roleLabels } from '../admin/roles'
 
 interface Access {
@@ -71,9 +72,11 @@ export function Workspace({ administration = false }: { administration?: boolean
   const organizations = [...new Set(access.memberships.map(row => row.organization_id))]
   const canManage = access.admin || access.memberships.some(row => row.role === 'owner')
 
-  if (administration) return canManage
-    ? <AdminConsole platform={access.admin} />
-    : <p>Distributor owner or platform superadmin access is required.</p>
+  if (administration) {
+    if (access.admin) return <PlatformDashboard />
+    if (canManage) return <AdminConsole platform={false} />
+    return <p>Distributor owner or platform superadmin access is required.</p>
+  }
 
   const canSell = roles.some(role => ['owner', 'operations_manager', 'sales', 'cashier', 'driver'].includes(role))
 
