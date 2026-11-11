@@ -1,0 +1,25 @@
+@font-face {
+  font-family: Mosvita;
+  src: url('/fonts/mosvita.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Mosvita;
+  src: url('/fonts/mosvita-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #edf3ef; color: #172b23; font-family: Mosvita; }
+main { width: min(100%, 74rem); margin: auto; padding: clamp(1.25rem, 5vw, 4rem); }
+header { padding-block: .75rem; font-size: 1.5rem; border-bottom: 1px solid #a8baaf; }
+h1 { font-size: clamp(2.25rem, 6vw, 4.5rem); margin-block: 2rem .5rem; line-height: 1.05; }
+h2 { margin: 0; font-size: 1.5rem; }
+p { margin-block: .6rem 0; font-size: 1.125rem; line-height: 1.5; }
+.areas { list-style: none; padding: 0; margin-block: 2rem; display: grid; gap: 1rem; }
+.areas li { padding: 1.5rem; background: white; border-radius: 1rem; }
+@media (min-width: 42rem) { .areas { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 66rem) { .areas { grid-template-columns: repeat(3, 1fr); } }
