@@ -37,3 +37,25 @@ p { margin-block: .6rem 0; font-size: 1.125rem; line-height: 1.5; }
 }
 .operation button { color: white; background: #194d38; font-weight: 700; }
 .operation button:disabled { opacity: .55; }
+
+body { background: #fff9e7; color: #272008; }
+header { border-color: #ded0a3; }
+header a { color: inherit; font-weight: 700; }
+.operation { max-width: 48rem; }
+.operation :is(input, select, button), .primary-link, .staff-list button {
+  min-height: 3.5rem;
+  font-size: 1.125rem;
+  border: 1px solid #ad8720;
+}
+.operation button, .primary-link, .staff-list button {
+  color: #272008;
+  background: #ffd33e;
+  font-weight: 700;
+}
+.primary-link { display: grid; place-items: center; border-radius: .65rem; }
+.admin-grid { display: grid; gap: 1rem; margin-top: 1rem; }
+.panel { background: #fff; border: 1px solid #ead9a7; border-radius: 1rem; padding: clamp(1rem, 4vw, 2rem); min-width: 0; }
+.staff-list { list-style: none; padding: 0; }
+.staff-list li { display: grid; gap: .45rem; padding-block: 1rem; border-bottom: 1px solid #ead9a7; overflow-wrap: anywhere; }
+.staff-list button { border-radius: .6rem; padding: .5rem 1rem; }
+@media (min-width: 52rem) { .admin-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
